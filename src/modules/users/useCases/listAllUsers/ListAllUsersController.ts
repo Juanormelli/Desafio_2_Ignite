@@ -3,13 +3,20 @@ import { Request, Response } from "express";
 import { ListAllUsersUseCase } from "./ListAllUsersUseCase";
 
 class ListAllUsersController {
-  constructor(private listAllUsersUseCase: ListAllUsersUseCase) {}
+  constructor(private listAllUsersUseCase: ListAllUsersUseCase) { }
 
   handle(request: Request, response: Response): Response {
-    const {user_id} = request.params
-    console.log()
-    const all = this.listAllUsersUseCase.execute({user_id});
-    return response.json(all);
+    console.log("Entrou")
+    try {
+      const user = request.query.user_id;
+      const user_id=user.toString();
+      console.log(user_id)
+      const all = this.listAllUsersUseCase.execute({ user_id });
+      return response.json(all);
+    }
+    catch (error) {
+      return response.status(400).json({ error: error.message })
+    }
   }
 }
 

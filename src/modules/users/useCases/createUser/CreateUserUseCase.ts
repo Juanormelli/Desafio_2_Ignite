@@ -1,3 +1,4 @@
+import { response } from "express";
 import { User } from "../../model/User";
 import { IUsersRepository } from "../../repositories/IUsersRepository";
 
@@ -13,7 +14,9 @@ class CreateUserUseCase {
       const userAlreadyExists = this.usersRepository.findByEmail(email);
 
       if (userAlreadyExists) {
-        throw new Error("User already exists")
+        
+        throw new Error("User already exists");
+        
       }
     const user = this.usersRepository.create({name, email})
 
