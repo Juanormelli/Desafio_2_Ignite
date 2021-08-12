@@ -1,0 +1,181 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "User Manipulation",
+        "version": "1.0.0",
+        "contact": {
+            "email": "juan_ormelli@hotmail.com"
+        }
+    },
+    "paths": {
+        "/users": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Create User",
+                "description": "Create User",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string"
+                                    }
+                                },
+                                "example": {
+                                    "name": "juan",
+                                    "email": "juan_ormelli@hotmail.com"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created"
+                    },
+                    "400": {
+                        "description": "User Already Exist"
+                    }
+                }
+            },
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "List all Users",
+                "description": "List all Users",
+                "parameters": [
+                    {
+                        "name": "user_id",
+                        "in": "header",
+                        "description": "User id of Admin user",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "type": "array",
+                                "items": {
+                                    "type": "object",
+                                    "properties": {
+                                        "name": {
+                                            "type": "string"
+                                        },
+                                        "email": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            }
+        },
+        "/users/{user_id}": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "List User",
+                "description": "List User",
+                "parameters": [
+                    {
+                        "name": "user_id",
+                        "in": "path",
+                        "description": "User id ",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "type": "array",
+                                "items": {
+                                    "name": {
+                                        "type":"string"
+                                    },
+                                    "email": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404":{
+                        "description":"User Not Found"
+                    }
+                }
+            }
+
+        },
+        "/users/{user_id}/admin":{
+            "patch": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Change Permission",
+                "description": "Change Permission",
+                "parameters": [
+                    {
+                        "name": "user_id",
+                        "in": "path",
+                        "description": "User id ",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    }
+                ],
+                "responses":{
+                    "200":{
+                        "description": "Success",
+                        "content":{
+                            "application/json":{
+                                "type": "array",
+                                "items":{
+                                    "type":"object",
+                                    "properties":{
+                                        "name":{
+                                            "type":"string"
+                                        },
+                                        "email":{
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                }
+
+            }
+        }
+        
+    }
+}
