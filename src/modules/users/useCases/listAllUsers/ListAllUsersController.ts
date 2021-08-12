@@ -8,7 +8,7 @@ class ListAllUsersController {
   handle(request: Request, response: Response): Response {
     console.log("Entrou")
     try {
-      const user = request.query.user_id;
+      const user = request.headers.user_id;
       const user_id=user.toString();
       console.log(user_id)
       const all = this.listAllUsersUseCase.execute({ user_id });
